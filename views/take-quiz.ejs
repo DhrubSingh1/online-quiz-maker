@@ -1,0 +1,52 @@
+<div class="card">
+    <h2><%= quiz.title %></h2>
+    <p>Participant: <strong><%= participant.name %></strong></p>
+    <% if (quiz.timer_minutes > 0) { %>
+        <div class="timer-box" style="margin-top: 1rem;">Time Remaining: <span id="timer">--:--</span></div>
+    <% } %>
+</div>
+
+<form id="quizAttemptForm" action="/quiz/<%= quiz.share_code %>/submit" method="POST">
+    <% questions.forEach((q, index) => { %>
+        <div class="card">
+            <h4>Question <%= index + 1 %>: <%= q.question_text %></h4>
+            <label class="option-label">
+                <input type="radio" name="answers[<%= q.id %>]" value="A"> A) <%= q.option_a %>
+            </label>
+            <label class="option-label">
+                <input type="radio" name="answers[<%= q.id %>]" value="B"> B) <%= q.option_b %>
+            </label>
+            <label class="option-label">
+                <input type="radio" name="answers[<%= q.id %>]" value="C"> C) <%= q.option_c %>
+            </label>
+            <label class="option-label">
+                <input type="radio" name="answers[<%= q.id %>]" value="D"> D) <%= q.option_d %>
+            </label>
+        </div>
+    <% }) %>
+
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <button type="submit" class="btn" style="padding: 0.8rem 2rem; font-size: 1.1rem;">Submit Quiz</button>
+    </div>
+</form>
+
+<% if (quiz.timer_minutes > 0) { %>
+<script>
+    const totalMinutes = parseInt('<%= quiz.timer_minutes %>') || 0;
+    let timeInSeconds = totalMinutes * 60;
+    const timerElement = document.getElementById('timer');
+
+    const countdown = setInterval(() => {
+        const minutes = Math.floor(timeInSeconds / 60);
+        const seconds = timeInSeconds % 60;
+        timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+        if (timeInSeconds <= 0) {
+            clearInterval(countdown);
+            alert('Time is up! Your answers will be submitted automatically.');
+            document.getElementById('quizAttemptForm').submit();
+        }
+        timeInSeconds--;
+    }, 1000);
+</script>
+<% } %>

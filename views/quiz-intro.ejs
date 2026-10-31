@@ -1,0 +1,21 @@
+<div class="card" style="max-width: 600px; margin: 2rem auto; text-align: center;">
+    <h2><%= quiz.title %></h2>
+    <p style="margin: 1rem 0;"><%= quiz.description %></p>
+    
+    <div style="margin: 1.5rem 0; color: #64748b; font-size: 0.95rem;">
+        <p>Created by: <strong><%= quiz.creator_name %></strong></p>
+        <p>Time Limit: <strong><%= quiz.timer_minutes > 0 ? quiz.timer_minutes + ' Minutes' : 'No Limit' %></strong></p>
+    </div>
+
+    <form action="/quiz/<%= quiz.share_code %>/start" method="POST" style="text-align: left; margin-top: 2rem;">
+        <div class="form-group">
+            <label>Your Full Name *</label>
+            <input type="text" name="participant_name" required placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+            <label>Your Email Address *</label>
+            <input type="email" name="participant_email" required placeholder="Enter your email">
+        </div>
+        <button type="submit" class="btn" style="width: 100%; margin-top: 1rem; padding: 0.8rem;">Start Quiz</button>
+    </form>
+</div>

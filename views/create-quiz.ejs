@@ -1,0 +1,78 @@
+<div class="card">
+    <h2>Create a New Quiz</h2>
+    <form action="/create-quiz" method="POST" id="quizForm">
+        <div class="form-group">
+            <label>Quiz Title</label>
+            <input type="text" name="title" required placeholder="e.g., General Knowledge Quiz">
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" rows="2" placeholder="Brief info about the quiz"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Time Limit (in Minutes - Enter 0 for No Limit)</label>
+            <input type="number" name="timer_minutes" value="0" min="0">
+        </div>
+
+        <hr style="margin: 1.5rem 0;">
+        <h3>Questions</h3>
+        <div id="questionsContainer"></div>
+
+        <button type="button" class="btn btn-secondary" onclick="addQuestion()" style="margin-bottom: 1rem;">+ Add Question</button>
+        <br>
+        <button type="submit" class="btn">Save & Publish Quiz</button>
+    </form>
+</div>
+
+<script>
+let questionCount = 0;
+
+function addQuestion() {
+    const container = document.getElementById('questionsContainer');
+    const qDiv = document.createElement('div');
+    qDiv.className = 'question-block';
+    qDiv.id = `q_${questionCount}`;
+    
+    qDiv.innerHTML = `
+        <h4>Question ${questionCount + 1}</h4>
+        <div class="form-group">
+            <label>Question Text</label>
+            <input type="text" name="questions[${questionCount}][text]" required>
+        </div>
+        <div class="form-group">
+            <label>Option A</label>
+            <input type="text" name="questions[${questionCount}][optionA]" required>
+        </div>
+        <div class="form-group">
+            <label>Option B</label>
+            <input type="text" name="questions[${questionCount}][optionB]" required>
+        </div>
+        <div class="form-group">
+            <label>Option C</label>
+            <input type="text" name="questions[${questionCount}][optionC]" required>
+        </div>
+        <div class="form-group">
+            <label>Option D</label>
+            <input type="text" name="questions[${questionCount}][optionD]" required>
+        </div>
+        <div class="form-group">
+            <label>Correct Answer</label>
+            <select name="questions[${questionCount}][correct]">
+                <option value="A">Option A</option>
+                <option value="B">Option B</option>
+                <option value="C">Option C</option>
+                <option value="D">Option D</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-danger" onclick="removeQuestion(${questionCount})">Remove Question</button>
+    `;
+    container.appendChild(qDiv);
+    questionCount++;
+}
+
+function removeQuestion(index) {
+    document.getElementById(`q_${index}`).remove();
+}
+
+addQuestion();
+</script>

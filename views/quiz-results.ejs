@@ -1,0 +1,32 @@
+<div class="card">
+    <h2>Submissions for "<%= quiz.title %>"</h2>
+    <p>Total Submissions: <%= submissions.length %></p>
+    <a href="/dashboard" class="btn btn-secondary" style="margin-top:0.5rem;">← Back to Dashboard</a>
+</div>
+
+<div class="card">
+    <% if (submissions.length === 0) { %>
+        <p>No one has attempted this quiz yet.</p>
+    <% } else { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Participant Name</th>
+                    <th>Email</th>
+                    <th>Score</th>
+                    <th>Submitted At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% submissions.forEach(sub => { %>
+                    <tr>
+                        <td><%= sub.participant_name %></td>
+                        <td><%= sub.participant_email %></td>
+                        <td><strong><%= sub.score %> / <%= sub.total_questions %></strong></td>
+                        <td><%= new Date(sub.submitted_at).toLocaleString() %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
+</div>

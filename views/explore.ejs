@@ -1,0 +1,13 @@
+<div class="card">
+    <h2>Available Quizzes</h2>
+    <p>Browse through public quizzes and test your knowledge!</p>
+</div>
+
+<% quizzes.forEach(quiz => { %>
+    <div class="card">
+        <h3><%= quiz.title %></h3>
+        <p><%= quiz.description %></p>
+        <p style="font-size:0.85rem; color:#666; margin: 0.5rem 0;">Created by: <%= quiz.creator_name %> | Time Limit: <%= quiz.timer_minutes > 0 ? quiz.timer_minutes + ' mins' : 'Unlimited' %></p>
+        <a href="/quiz/<%= quiz.share_code %>" class="btn">Take Quiz</a>
+    </div>
+<% }) %>

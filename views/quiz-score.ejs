@@ -1,0 +1,9 @@
+<div class="card" style="text-align: center;">
+    <h2>Quiz Submitted!</h2>
+    <p>Thank you, <strong><%= participantName %></strong>.</p>
+    <div style="margin: 2rem 0;">
+        <h3>Your Score: <%= score %> / <%= total %></h3>
+        <p><%= Math.round((score / total) * 100) %>% Accuracy</p>
+    </div>
+    <a href="/explore" class="btn">Take Another Quiz</a>
+</div>

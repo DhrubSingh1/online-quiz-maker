@@ -1,0 +1,37 @@
+<div class="card">
+    <h2>Your Dashboard</h2>
+    <p>Manage your created quizzes and view scores.</p>
+    <a href="/create-quiz" class="btn" style="margin-top: 1rem;">+ Create New Quiz</a>
+</div>
+
+<div class="card">
+    <h3>Your Quizzes</h3>
+    <% if (quizzes.length === 0) { %>
+        <p>You haven't created any quizzes yet.</p>
+    <% } else { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Timer</th>
+                    <th>Share Link</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% quizzes.forEach(quiz => { %>
+                    <tr>
+                        <td><strong><%= quiz.title %></strong></td>
+                        <td><%= quiz.timer_minutes > 0 ? quiz.timer_minutes + ' Mins' : 'No Limit' %></td>
+                        <td>
+                            <input type="text" readonly value="http://<%= host %>/quiz/<%= quiz.share_code %>" style="width: 220px;">
+                        </td>
+                        <td>
+                            <a href="/quiz-results/<%= quiz.id %>" class="btn btn-secondary">View Results</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
+</div>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz Maker</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/">QuizMaker</a></h1>
+        <nav>
+            <a href="/explore">Explore Quizzes</a>
+            <% if (locals.user && user) { %>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/create-quiz">Create Quiz</a>
+                <a href="/logout">Logout (<%= user.name %>)</a>
+            <% } else { %>
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            <% } %>
+        </nav>
+    </header>
+
+    <main>
+        <%- body %>
+    </main>
+</body>
+</html>
