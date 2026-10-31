@@ -1,6 +1,6 @@
 const express = require('express');
 const session = require('express-session');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const expressLayouts = require('express-ejs-layouts');
 const pool = require('./config/db');
